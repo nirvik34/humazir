@@ -8,7 +8,6 @@ _CONFIG_FILE = _ROOT / "config.yaml"
 
 
 def load() -> dict:
-    """Load config.yaml and merge environment overrides."""
     if _CONFIG_FILE.exists():
         with open(_CONFIG_FILE, "r", encoding="utf-8") as f:
             cfg = yaml.safe_load(f) or {}
