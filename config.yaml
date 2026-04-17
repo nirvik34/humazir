@@ -1,0 +1,20 @@
+app_name: Humanizr CLI
+version: 1.0.0
+
+paths:
+  skills: skills
+  reports: reports
+  exports: exports
+
+detection:
+  ai_threshold: 65
+  suspicious_words:
+    - furthermore
+    - moreover
+    - in conclusion
+    - additionally
+    - thus
+
+humanizer:
+  style: natural
+  preserve_meaning: true
