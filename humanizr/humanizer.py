@@ -1,8 +1,26 @@
+import os
 import requests
 from dataclasses import dataclass, field
+from humanizr.config import load_config
+
+import json
+
+CONFIG_PATH = os.path.expanduser("~/.humanizr.json")
+
+def load_config():
+    if os.path.exists(CONFIG_PATH):
+        with open(CONFIG_PATH) as f:
+            return json.load(f)
+    return {}
+
+def save_config(data):
+    with open(CONFIG_PATH, "w") as f:
+        json.dump(data, f, indent=2)
+
 
 OLLAMA_URL = "http://127.0.0.1:11434/api/generate"
-MODEL = "deepseek-coder:6.7b"
+config = load_config()
+MODEL = config.get("model", "deepseek-coder:6.7b")
 
 
 STYLES = {

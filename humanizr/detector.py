@@ -5,8 +5,6 @@ from dataclasses import dataclass, field
 from humanizr.utils import sentences, paragraphs, truncate
 
 
-# ── Signals ────────────────────────────────────────────────────────────────
-
 AI_VOCAB = [
     "groundbreaking", "pivotal", "transformative", "revolutionary", "cutting-edge",
     "comprehensive", "robust", "synergy", "leverage", "paradigm", "seamless",
@@ -53,8 +51,7 @@ def _burstiness(sents: list) -> float:
     if mean == 0:
         return 0.5
     variance = sum((l - mean) ** 2 for l in lengths) / len(lengths)
-    cv = math.sqrt(variance) / mean   # coefficient of variation
-    # Low CV = uniform = AI. We return how AI-like (1 = very AI).
+    cv = math.sqrt(variance) / mean   
     return max(0.0, min(1.0, 1.0 - (cv / 0.6)))
 
 
@@ -62,7 +59,7 @@ def _transition_density(text: str) -> float:
     words = text.lower().split()
     total_words = max(len(words), 1)
     hits = sum(words.count(t.split()[0]) for t in TRANSITION_WORDS)
-    density = (hits / total_words) * 100  # per 100 words
+    density = (hits / total_words) * 100
     return min(1.0, density / 3.0)
 
 
@@ -123,7 +120,6 @@ def _find_flagged(text: str, extra_patterns: list = None) -> list:
     return flagged
 
 
-# ── Main entry point ───────────────────────────────────────────────────────
 
 @dataclass
 class DetectionResult:

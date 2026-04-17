@@ -1,7 +1,19 @@
-
+import os
 import re
 from pathlib import Path
+import json
 
+CONFIG_PATH = os.path.expanduser("~/.humanizr.json")
+
+def load_config():
+    if os.path.exists(CONFIG_PATH):
+        with open(CONFIG_PATH) as f:
+            return json.load(f)
+    return {}
+
+def save_config(data):
+    with open(CONFIG_PATH, "w") as f:
+        json.dump(data, f, indent=2)
 
 def sentences(text: str) -> list:
     return [
